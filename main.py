@@ -1,21 +1,32 @@
 #Hecho por Inti Velásquez y Miguel Ardon
+#Requiere pip para instalar los modulos y Python 3 para correr el programa: 'python main.py'
+
 #to install ---> pip install pyenchant
 import enchant
 #to install ---> pip install termcolor
 from termcolor import colored
-#Requiere pip para instalar los modulos y Python 3 para correr el programa: 'python main.py'
+
+import sys, traceback
 
 #english diccionary
 checkWord = enchant.Dict("en_US")
 
 #given string
-encrypted = "PHHW PH DIWHU WKH WRJD SDUWB"
-
-#pass string to an array
-encryptedList = encrypted.split(" ")
+encrypted = ""
 
 #decrypted string
 decrypted = ""
+
+def menu():
+    print("********Menu*******\n"
+           "Opciones:\n"
+           "1. PHHW PH DIWHU WKH WRJD SDUWB\n"
+           "2. GCUA VQ DTGCM\n"
+           "3. Exit\n")
+    try:
+        return int(input())
+    except:
+        return 12
 
 def decryptor(word):
     combinations = list()
@@ -38,27 +49,40 @@ def decryptor(word):
             combinations.append(decrypted + "")            
     return combinations
 
-print("Frase encriptada:")
-print(encrypted)
-print("")
-all = list()
-for word in encryptedList:
-    all.append(decryptor(word)) 
-
-for item in range(0,26):
-    decryptedWords = int(0)
-    decryptedIndex = int(-1)
-    for wordColumn in range(0, len(all)):
-        try:
-            if checkWord.check(all[wordColumn][item]+"") or checkWord.check(colored(all[wordColumn][item])+""):
-                decryptedWords += 1
-        except Exception as error:
-            loop=1
+opcion = 0
+while opcion < 3:
+    opcion = menu()
+    if opcion == 1:
+        encrypted = "PHHW PH DIWHU WKH WRJD SDUWB"
+    elif opcion == 2:
+        encrypted = "GCUA VQ DTGCM"
+    else:
+        sys.exit(0)    
+    
+    #pass string to an array
+    encryptedList = encrypted.split(" ")
+    
+    print("Frase encriptada:")
+    print(encrypted)
     print("")
-    if decryptedWords == len(encryptedList):
-        print("Frase desencriptada:")
-    palabra = ""        
-    for decryptedColumn in range(0, len(all)):
-        palabra += all[decryptedColumn][item] + " "
-    print(palabra)   
-                                    
+    all = list()
+    for word in encryptedList:
+        all.append(decryptor(word)) 
+
+    for item in range(0,26):
+        decryptedWords = int(0)
+        decryptedIndex = int(-1)
+        for wordColumn in range(0, len(all)):
+            try:
+                if checkWord.check(all[wordColumn][item]+"") or checkWord.check(colored(all[wordColumn][item])+""):
+                    decryptedWords += 1
+            except Exception as error:
+                loop=1
+        print("")
+        if decryptedWords == len(encryptedList):
+            print("Frase desencriptada:")
+        palabra = ""        
+        for decryptedColumn in range(0, len(all)):
+            palabra += all[decryptedColumn][item] + " "
+        print(palabra)   
+    print("")                                    
