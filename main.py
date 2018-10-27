@@ -74,15 +74,18 @@ while opcion < 3:
         decryptedIndex = int(-1)
         for wordColumn in range(0, len(all)):
             try:
-                if checkWord.check(all[wordColumn][item]+"") or checkWord.check(colored(all[wordColumn][item])+""):
+                if checkWord.check(all[wordColumn][item]+"") or (not all[wordColumn][item][0].isalnum() and all[wordColumn][item][5].isalnum()):
                     decryptedWords += 1
             except Exception as error:
                 loop=1
         print("")
         if decryptedWords == len(encryptedList):
             print("Frase desencriptada:")
+
+        print(item, end='')
+        print(".- ", end='')
         palabra = ""        
         for decryptedColumn in range(0, len(all)):
             palabra += all[decryptedColumn][item] + " "
-        print(palabra)   
+        print(palabra)     
     print("")                                    
